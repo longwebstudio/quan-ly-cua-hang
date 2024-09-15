@@ -1,59 +1,75 @@
 <template>
-  <q-page class="column flex-center">
-    <q-knob
-      v-model="count"
-      :min="min"
-      :max="max"
-      size="80px"
-      show-value
-      :thickness="0.13"
-      color="primary"
-      track-color="dark"
+  <div>
+    <q-carousel
+      v-model="slide"
+      transition-prev="slide-right"
+      transition-next="slide-left"
+      animated
+      control-color="primary"
+      navigation
+      padding
+      arrows
+      height="300px"
+      class="bg-grey-2 rounded-borders"
     >
-      <q-avatar size="75px">
-        <img alt="Quasar logo" src="~assets/quasar-logo-inner.svg" />
-      </q-avatar>
-    </q-knob>
+      <q-carousel-slide :name="1" img-src="https://placeimg.com/500/300/nature">
+        <div class="absolute-bottom custom-caption">
+          <div class="text-h2">Slide 1</div>
+          <div class="text-subtitle1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide
+        :name="2"
+        img-src="https://placeimg.com/500/300/nature/grayscale"
+      >
+        <div class="absolute-bottom custom-caption">
+          <div class="text-h2">Slide 2</div>
+          <div class="text-subtitle1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+      </q-carousel-slide>
+      <q-carousel-slide :name="3" img-src="https://placeimg.com/500/300/arch">
+        <div class="absolute-bottom custom-caption">
+          <div class="text-h2">Slide 3</div>
+          <div class="text-subtitle1">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </div>
+        </div>
+      </q-carousel-slide>
+    </q-carousel>
 
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 140px"
-    />
-
-    <div class="q-mt-xl">
-      <q-btn
-        color="primary"
-        dense
-        round
-        label="-"
-        :disable="count === min"
-        @click="count--"
-      />
-
-      <span class="q-mx-md text-bold">{{ count }}</span>
-
-      <q-btn
-        color="primary"
-        dense
-        round
-        label="+"
-        :disable="count === max"
-        @click="count++"
-      />
+    <div class="q-pa-md">
+      <FeaturedProducts />
     </div>
-
-    <div class="q-mt-md" style="width: 200px">
-      <q-slider v-model="count" :min="min" :max="max" />
-    </div>
-  </q-page>
+  </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
+<script>
+import FeaturedProducts from "src/components/FeaturedProducts.vue";
+import { ref } from "vue";
 
-const count = ref(0);
+export default {
+  components: {
+    FeaturedProducts,
+  },
+  setup() {
+    const slide = ref(1);
 
-const min = -5;
-const max = 5;
+    return {
+      slide,
+    };
+  },
+};
 </script>
+
+<style>
+.custom-caption {
+  text-align: center;
+  padding: 12px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+</style>
